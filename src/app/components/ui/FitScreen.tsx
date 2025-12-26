@@ -22,12 +22,13 @@ export function FitScreen({
         const parent = containerRef.current.parentElement;
         if (parent) {
           const { clientWidth, clientHeight } = parent;
-          // Calculate scale to fill the viewport while maintaining aspect ratio
+          // Calculate scale to fit within the viewport while maintaining aspect ratio
           const scaleX = clientWidth / width;
           const scaleY = clientHeight / height;
           
-          // Use Math.max for 'cover' behavior - fills the screen, may crop edges
-          const newScale = Math.max(scaleX, scaleY);
+          // Use Math.min to ensure the content fits entirely within the screen (contain)
+          // This keeps all elements at their original size
+          const newScale = Math.min(scaleX, scaleY);
           
           setScale(newScale);
         }

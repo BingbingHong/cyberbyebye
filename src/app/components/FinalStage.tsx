@@ -113,31 +113,52 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
   }, [wish]);
 
   return (
-    <div className="relative w-[1440px] h-[1024px] bg-white overflow-hidden" data-name="Desktop - 8" style={{ backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)" }}>
-      {/* 背景内容 */}
-      <div className="absolute h-[882px] left-[207px] top-[20px] w-[1025px]" data-name="云 1">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img1} />
-        </div>
-      </div>
-      <div className="absolute left-1/2 size-[684px] top-[125px] translate-x-[-50%]" data-name="老爷像 1">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img2} />
-      </div>
-      <Frame />
-      <Frame1 />
-
-      {/* 高斯模糊背景层 */}
+    <>
+      {/* 背景层 - 使用 fixed 定位填满整个视口 */}
       <div 
-        className="absolute inset-0 backdrop-blur-md bg-white/60 z-10"
-        style={{
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{ 
+          backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      />
+      >
+        {/* 云朵背景图片 - 填满整个视口 */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${img1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.8,
+          }}
+        />
+      </div>
 
-      {/* 前景内容（在模糊层之上） */}
-      <ReplyCard reply={reply} isLoading={isLoading} />
-      <BackButton onClick={onReset} />
-    </div>
+      {/* 前景内容 - 保持原始大小和位置 */}
+      <div className="relative w-[1440px] h-[1024px] overflow-hidden z-10" data-name="Desktop - 8">
+        <div className="absolute h-[882px] left-[207px] top-[20px] w-[1025px] opacity-0 pointer-events-none" data-name="云 1">
+          {/* 这个元素隐藏，因为已经在背景层显示了 */}
+        </div>
+        <div className="absolute left-1/2 size-[684px] top-[125px] translate-x-[-50%]" data-name="老爷像 1">
+          <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img2} />
+        </div>
+        <Frame />
+        <Frame1 />
+
+        {/* 高斯模糊背景层 */}
+        <div 
+          className="absolute inset-0 backdrop-blur-md bg-white/60 z-10"
+          style={{
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
+        />
+
+        {/* 前景内容（在模糊层之上） */}
+        <ReplyCard reply={reply} isLoading={isLoading} />
+        <BackButton onClick={onReset} />
+      </div>
+    </>
   );
 }
