@@ -60,7 +60,7 @@ export default async function handler(
             },
           ],
           temperature: 0.9,
-          max_tokens: 1000, // 增加 token 数量以确保可以生成至少100字的回复
+          max_tokens: 500, // token 数量足以生成至少50字的回复
         }),
       }
     );
