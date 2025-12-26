@@ -83,13 +83,26 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         },
         body: JSON.stringify({ wish }),
       })
-        .then(res => {
+        .then(async res => {
+          const responseText = await res.text();
+          console.log('API Response Status:', res.status);
+          console.log('API Response:', responseText);
+          
           if (!res.ok) {
-            throw new Error(`API returned ${res.status}`);
+            const errorData = JSON.parse(responseText).catch(() => ({ error: responseText }));
+            console.error('API Error:', errorData);
+            throw new Error(`API returned ${res.status}: ${JSON.stringify(errorData)}`);
           }
-          return res.json();
+          
+          try {
+            return JSON.parse(responseText);
+          } catch (e) {
+            console.error('Failed to parse JSON:', responseText);
+            throw new Error('Invalid JSON response');
+          }
         })
         .then(data => {
+          console.log('Parsed data:', data);
           if (data.reply) {
             setReply(data.reply);
           } else {
@@ -101,8 +114,13 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         })
         .catch(error => {
           console.error('Error generating reply:', error);
-          // 如果出错，生成一个友好的默认回复
-          setReply('老爷已经听到你的愿望了，心诚则灵，来年一定心想事成！');
+          console.error('Error details:', error.message);
+          // 如果出错，显示更详细的错误信息（开发环境）或友好默认回复（生产环境）
+          if (import.meta.env.DEV) {
+            setReply(`API 调用失败: ${error.message}。请检查控制台获取详细信息。`);
+          } else {
+            setReply('老爷已经听到你的愿望了，心诚则灵，来年一定心想事成！');
+          }
           setIsLoading(false);
         });
     } else {
