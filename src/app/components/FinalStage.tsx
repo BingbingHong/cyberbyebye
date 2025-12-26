@@ -19,19 +19,17 @@ function Frame1() {
   return <div className="absolute bg-[#0dbf22] left-[70px] rounded-[100px] size-[12px] top-[83px]" />;
 }
 
-function ReplyCard({ reply, isLoading }: { reply: string | null; isLoading: boolean }) {
-  // 加载中或没有回复时，显示空白卡片（不显示任何文字）
-  if (isLoading || !reply) {
-    return (
-      <div className="absolute bg-white min-h-[300px] max-h-[600px] left-1/2 rounded-[32px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[753px] z-20 overflow-hidden">
-        <div className="content-stretch flex items-center justify-center overflow-clip p-[28px] relative rounded-[inherit] size-full">
-          {/* 加载中时不显示任何文字，静默等待 */}
-        </div>
-        <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
-      </div>
-    );
-  }
+function LoadingMessage() {
+  return (
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+      <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative text-[32px] text-black tracking-[9.6px] whitespace-nowrap">
+        老爷在接收你的愿望...
+      </p>
+    </div>
+  );
+}
 
+function ReplyCard({ reply }: { reply: string }) {
   // 显示 AI 生成的回复
   return (
     <div className="absolute bg-white min-h-[300px] max-h-[600px] left-1/2 rounded-[32px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[753px] z-20 overflow-hidden">
@@ -179,7 +177,11 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         />
 
         {/* 前景内容（在模糊层之上） */}
-        <ReplyCard reply={reply} isLoading={isLoading} />
+        {isLoading ? (
+          <LoadingMessage />
+        ) : reply ? (
+          <ReplyCard reply={reply} />
+        ) : null}
         <BackButton onClick={onReset} />
       </div>
     </>
