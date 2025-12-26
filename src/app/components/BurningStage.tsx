@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { motion } from "motion/react";
 import imgFrame5 from "figma:asset/2edbb4b2d19fc6361b41e82bfd9990d7b801a39f.png";
 import img1 from "figma:asset/aa6dd4bd03ca46c92209d8c3334ad7a81ac30a74.png";
 import img2 from "figma:asset/60d7327f6669d5ae5d7287d52c1c76a53e78e4ed.png";
@@ -103,9 +104,20 @@ export default function BurningStage({ onComplete }: BurningStageProps) {
           <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img2} />
         </div>
       </div>
-      <div className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" data-name="老爷像 1">
+      <motion.div 
+        className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" 
+        data-name="老爷像 1"
+        animate={{
+          y: [0, -15, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img3} />
-      </div>
+      </motion.div>
       <Frame />
       <Frame1 />
       <p className="absolute leading-[normal] left-[calc(50%-170px)] not-italic text-[16px] text-black text-nowrap top-[876px] tracking-[0.32px]">"上三柱香，默念愿望"</p>

@@ -161,9 +161,20 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         <div className="absolute h-[882px] left-[207px] top-[20px] w-[1025px] opacity-0 pointer-events-none" data-name="云 1">
           {/* 这个元素隐藏，因为已经在背景层显示了 */}
         </div>
-        <div className="absolute left-1/2 size-[684px] top-[125px] translate-x-[-50%]" data-name="老爷像 1">
+        <motion.div 
+          className="absolute left-1/2 size-[684px] top-[125px] translate-x-[-50%]" 
+          data-name="老爷像 1"
+          animate={{
+            y: [0, -15, 0],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
           <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img2} />
-        </div>
+        </motion.div>
         <Frame />
         <Frame1 />
 

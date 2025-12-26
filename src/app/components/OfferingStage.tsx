@@ -91,9 +91,20 @@ export default function OfferingStage({ onComplete }: OfferingStageProps) {
           <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img4} />
         </div>
       </div>
-      <div className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" data-name="老爷像 1">
+      <motion.div 
+        className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" 
+        data-name="老爷像 1"
+        animate={{
+          y: [0, -15, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img5} />
-      </div>
+      </motion.div>
       
       {/* 左侧对联 */}
       <div className="absolute left-[240px] top-[175px] pointer-events-none">
