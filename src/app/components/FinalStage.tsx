@@ -69,28 +69,10 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // 临时使用测试文字，不调用 API（方便调试 UI）
+    // 调用 DeepSeek API 生成回复
     if (wish && wish.trim()) {
       setIsLoading(true);
-      setReply(null);
-      
-      // 模拟 API 延迟
-      setTimeout(() => {
-        setReply(`后生仔，你的愿望"${wish}"我已经收到了！这是一个测试回复，用来调试界面。当你准备好使用真实的 AI 回复时，告诉我开启 API 调用即可。老爷会保佑你的，心诚则灵，来年一定心想事成！记得给个五星好评，么么哒！`);
-        setIsLoading(false);
-      }, 800); // 模拟 0.8 秒的加载时间
-    } else {
-      setReply('感谢你的诚心，老爷会保佑你的！');
-      setIsLoading(false);
-    }
-
-    /* 
-    // ===== 真实的 API 调用代码（已暂时禁用）=====
-    // 如果需要启用，取消下面的注释，并删除上面的测试代码
-    
-    if (wish && wish.trim()) {
-      setIsLoading(true);
-      setReply(null);
+      setReply(null); // 重置回复，确保每次都是新的
       
       fetch('/api/generate-reply', {
         method: 'POST',
@@ -128,6 +110,7 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
             setReply(data.reply);
           } else {
             console.error('No reply in response:', data);
+            // 如果 API 没有返回回复，尝试生成一个默认回复
             setReply('老爷已经收到你的愿望了，一定会保佑你的！');
           }
           setIsLoading(false);
@@ -135,6 +118,7 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         .catch(error => {
           console.error('Error generating reply:', error);
           console.error('Error details:', error.message);
+          // 如果出错，检查是否是余额不足的错误
           if (error.message.includes('Insufficient Balance')) {
             setReply('老爷暂时无法回复（账户余额不足），但已经听到你的愿望了，心诚则灵，来年一定心想事成！');
           } else {
@@ -143,10 +127,10 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
           setIsLoading(false);
         });
     } else {
+      // 如果没有愿望，也生成一个默认回复
       setReply('感谢你的诚心，老爷会保佑你的！');
       setIsLoading(false);
     }
-    */
   }, [wish]);
 
   return (
