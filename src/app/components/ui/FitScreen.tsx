@@ -22,13 +22,12 @@ export function FitScreen({
         const parent = containerRef.current.parentElement;
         if (parent) {
           const { clientWidth, clientHeight } = parent;
-          // Calculate scale to fit within the viewport while maintaining aspect ratio
+          // Calculate scale to fill the viewport while maintaining aspect ratio
           const scaleX = clientWidth / width;
           const scaleY = clientHeight / height;
           
-          // Use Math.min to ensure the content fits entirely within the screen (contain)
-          // You could use Math.max for 'cover' behavior if preferred
-          const newScale = Math.min(scaleX, scaleY);
+          // Use Math.max for 'cover' behavior - fills the screen, may crop edges
+          const newScale = Math.max(scaleX, scaleY);
           
           setScale(newScale);
         }
@@ -53,7 +52,7 @@ export function FitScreen({
           // Center the transformation
           transformOrigin: "center center",
         }}
-        className="shrink-0 relative shadow-sm"
+        className="shrink-0 relative"
       >
         {children}
       </div>

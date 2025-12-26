@@ -20,30 +20,21 @@ function Frame1() {
 }
 
 function ReplyCard({ reply, isLoading }: { reply: string | null; isLoading: boolean }) {
-  if (isLoading) {
+  // 加载中或没有回复时，显示空白卡片（不显示任何文字）
+  if (isLoading || !reply) {
     return (
-      <div className="absolute bg-white min-h-[300px] max-h-[600px] left-[calc(50%+0.5px)] rounded-[32px] top-[calc(50%+297px)] translate-x-[-50%] translate-y-[-50%] w-[753px] z-20 overflow-hidden">
+      <div className="absolute bg-white min-h-[300px] max-h-[600px] left-1/2 rounded-[32px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[753px] z-20 overflow-hidden">
         <div className="content-stretch flex items-center justify-center overflow-clip p-[28px] relative rounded-[inherit] size-full">
-          <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative text-[24px] text-black tracking-[7.68px]">老爷正在回复...</p>
+          {/* 加载中时不显示任何文字，静默等待 */}
         </div>
         <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
       </div>
     );
   }
 
-  if (!reply) {
-    return (
-      <div className="absolute bg-white h-[204px] left-[calc(50%+0.5px)] rounded-[32px] top-[calc(50%+297px)] translate-x-[-50%] translate-y-[-50%] w-[753px] z-20">
-        <div className="content-stretch flex items-center justify-center overflow-clip p-[28px] relative rounded-[inherit] size-full">
-          <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[24px] text-black text-nowrap tracking-[7.68px]">"我已经记下了，来年一定愿望成功"</p>
-        </div>
-        <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
-      </div>
-    );
-  }
-
+  // 显示 AI 生成的回复
   return (
-    <div className="absolute bg-white min-h-[300px] max-h-[600px] left-[calc(50%+0.5px)] rounded-[32px] top-[calc(50%+297px)] translate-x-[-50%] translate-y-[-50%] w-[753px] z-20 overflow-hidden">
+    <div className="absolute bg-white min-h-[300px] max-h-[600px] left-1/2 rounded-[32px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[753px] z-20 overflow-hidden">
       <div className="content-stretch flex items-start overflow-clip p-[28px] relative rounded-[inherit] w-full max-h-full">
         <div className="overflow-y-auto w-full max-h-[544px]">
           <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-relaxed not-italic relative text-[24px] text-black tracking-[7.68px] whitespace-pre-wrap break-words">{reply}</p>
@@ -83,6 +74,8 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
     // 如果有愿望内容，调用 API 生成回复
     if (wish && wish.trim()) {
       setIsLoading(true);
+      setReply(null); // 重置回复，确保每次都是新的
+      
       fetch('/api/generate-reply', {
         method: 'POST',
         headers: {
@@ -90,21 +83,32 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         },
         body: JSON.stringify({ wish }),
       })
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`API returned ${res.status}`);
+          }
+          return res.json();
+        })
         .then(data => {
           if (data.reply) {
             setReply(data.reply);
           } else {
             console.error('No reply in response:', data);
+            // 如果 API 没有返回回复，尝试生成一个默认回复
+            setReply('老爷已经收到你的愿望了，一定会保佑你的！');
           }
           setIsLoading(false);
         })
         .catch(error => {
           console.error('Error generating reply:', error);
+          // 如果出错，生成一个友好的默认回复
+          setReply('老爷已经听到你的愿望了，心诚则灵，来年一定心想事成！');
           setIsLoading(false);
-          // 如果出错，显示默认消息
-          setReply(null);
         });
+    } else {
+      // 如果没有愿望，也生成一个默认回复
+      setReply('感谢你的诚心，老爷会保佑你的！');
+      setIsLoading(false);
     }
   }, [wish]);
 
