@@ -1,7 +1,7 @@
 /* 自定义字体定义 - 时时如意-小雅词隶 */
 @font-face {
   font-family: "ShiShiRuYi";
-  src: url("../assets/fonts/ShiShiRuYi-XiaoYaCiLi-2.ttf") format("truetype");
+  src: url("/fonts/ShiShiRuYi-XiaoYaCiLi-2.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
