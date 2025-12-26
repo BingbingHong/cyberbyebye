@@ -120,7 +120,7 @@ export default function BurningStage({ onComplete }: BurningStageProps) {
       </motion.div>
       <Frame />
       <Frame1 />
-      <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[42px] text-black text-nowrap top-[876px] tracking-[1.26px]">"上三柱香，默念愿望"</p>
+      <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[28px] text-black text-nowrap top-[876px] tracking-[0.84px]">"上三柱香，默念愿望"</p>
       <Group3 />
     </div>
   );
