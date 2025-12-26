@@ -89,7 +89,12 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
           console.log('API Response:', responseText);
           
           if (!res.ok) {
-            const errorData = JSON.parse(responseText).catch(() => ({ error: responseText }));
+            let errorData;
+            try {
+              errorData = JSON.parse(responseText);
+            } catch (e) {
+              errorData = { error: responseText };
+            }
             console.error('API Error:', errorData);
             throw new Error(`API returned ${res.status}: ${JSON.stringify(errorData)}`);
           }
@@ -115,9 +120,9 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         .catch(error => {
           console.error('Error generating reply:', error);
           console.error('Error details:', error.message);
-          // 如果出错，显示更详细的错误信息（开发环境）或友好默认回复（生产环境）
-          if (import.meta.env.DEV) {
-            setReply(`API 调用失败: ${error.message}。请检查控制台获取详细信息。`);
+          // 如果出错，检查是否是余额不足的错误
+          if (error.message.includes('Insufficient Balance')) {
+            setReply('老爷暂时无法回复（账户余额不足），但已经听到你的愿望了，心诚则灵，来年一定心想事成！');
           } else {
             setReply('老爷已经听到你的愿望了，心诚则灵，来年一定心想事成！');
           }
