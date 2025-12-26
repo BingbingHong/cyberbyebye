@@ -1,0 +1,96 @@
+import imgFrame5 from "figma:asset/2edbb4b2d19fc6361b41e82bfd9990d7b801a39f.png";
+import img1 from "figma:asset/8ce5b717cbc407631b6a64054263490b5b3f85ac.png";
+import img2 from "figma:asset/f8d2a40c925b11141803917dff2933e19e614965.png";
+import img3 from "figma:asset/60a8afc0196f1635ab39f4278b7224f5262f626a.png";
+
+function Frame() {
+  return (
+    <div className="absolute left-[33px] pointer-events-none rounded-[100px] size-[50px] top-[45px]">
+      <div className="absolute inset-0 overflow-hidden rounded-[100px]">
+        <img alt="" className="absolute left-[-20.8%] max-w-none size-[134.07%] top-[-13.04%]" src={imgFrame5} />
+      </div>
+      <div aria-hidden="true" className="absolute border-[#676767] border-[3px] border-solid inset-0 rounded-[100px]" />
+    </div>
+  );
+}
+
+function Frame1() {
+  return <div className="absolute bg-[#0dbf22] left-[70px] rounded-[100px] size-[12px] top-[83px]" />;
+}
+
+function Group() {
+  return (
+    <div className="absolute h-[120px] left-[399px] top-[677px] w-0">
+      <div className="absolute inset-[0_-4px_0_0]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 4.00001 120">
+          <g id="Group 4">
+            <line id="Line 2" stroke="var(--stroke-0, #FBC4D4)" strokeWidth="4" x1="2.00001" x2="2" y1="8.74228e-08" y2="120" />
+            <line id="Line 3" stroke="var(--stroke-0, #FF6444)" strokeWidth="4" x1="2.00001" x2="2" y1="8.74228e-08" y2="13" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function Group1() {
+  return (
+    <div className="h-[120px] relative w-[27px]">
+      <div className="absolute inset-[0_-14.81%_0_0]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 31 120">
+          <g id="Group 5">
+            <line id="Line 2" stroke="var(--stroke-0, #FBC4D4)" strokeWidth="4" transform="matrix(-0.219512 0.97561 -1 0 27 0)" x2="123" y1="-2" y2="-2" />
+            <line id="Line 3" stroke="var(--stroke-0, #FF6444)" strokeWidth="4" transform="matrix(-0.219512 0.97561 -1 0 27 0)" x2="13.325" y1="-2" y2="-2" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function Group2() {
+  return (
+    <div className="absolute h-[120px] left-[413px] top-[677px] w-[27px]">
+      <div className="absolute inset-[0_-14.81%_0_0]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 31 120">
+          <g id="Group 6">
+            <line id="Line 2" stroke="var(--stroke-0, #FBC4D4)" strokeWidth="4" transform="matrix(-0.219512 0.97561 -1 0 27 0)" x2="123" y1="-2" y2="-2" />
+            <line id="Line 3" stroke="var(--stroke-0, #FF6444)" strokeWidth="4" transform="matrix(-0.219512 0.97561 -1 0 27 0)" x2="13.325" y1="-2" y2="-2" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+export default function Desktop() {
+  return (
+    <div className="relative size-full" data-name="Desktop - 6" style={{ backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)" }}>
+      <div className="absolute h-[598px] left-[372px] top-0 w-[695px]" data-name="云 1">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img1} />
+        </div>
+      </div>
+      <p className="absolute font-['HYXueJunJ:Regular',sans-serif] leading-[normal] left-[86px] not-italic text-[256px] text-nowrap text-white top-[256px] tracking-[81.92px]">老爷保号</p>
+      <div className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" data-name="老爷像 1">
+        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img2} />
+      </div>
+      <p className="absolute font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] left-[101px] not-italic text-[36px] text-black text-nowrap top-[52px] tracking-[4.32px]">老爷</p>
+      <Frame />
+      <Frame1 />
+      <p className="absolute font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] left-[calc(50%-170px)] not-italic text-[24px] text-black text-nowrap top-[876px] tracking-[7.68px]">“上三柱香，默念愿望”</p>
+      <div className="absolute h-[248px] left-[calc(50%-0.5px)] top-[598px] translate-x-[-50%] w-[295px]" data-name="炉子 1">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <img alt="" className="absolute h-[344.76%] left-[-64.41%] max-w-none top-[-210.48%] w-[223.39%]" src={img3} />
+        </div>
+      </div>
+      <Group />
+      <div className="absolute flex h-[120px] items-center justify-center left-[358px] top-[677px] w-[27px]">
+        <div className="flex-none rotate-[180deg] scale-y-[-100%]">
+          <Group1 />
+        </div>
+      </div>
+      <Group2 />
+    </div>
+  );
+}
