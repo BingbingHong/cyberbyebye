@@ -58,7 +58,7 @@ export default function WishingStage({ onSend }: WishingStageProps) {
       <Avatar />
       <StatusDot />
       
-      <p className="absolute leading-[normal] left-[calc(50%-161px)] not-italic text-[36px] text-black text-nowrap top-[274px] tracking-[11.52px]">说说你的愿望吧</p>
+      <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[42px] text-black text-nowrap top-[274px] tracking-[1.26px]">说说你的愿望吧</p>
       
       <WishInput value={wish} onChange={setWish} />
       <SendButton onClick={() => onSend(wish)} />

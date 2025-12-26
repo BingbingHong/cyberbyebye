@@ -174,7 +174,7 @@ export default function OfferingStage({ onComplete }: OfferingStageProps) {
       </div>
 
       {!allRevealed && (
-        <p className="absolute leading-[normal] left-[calc(50%-218px)] not-italic text-[16px] text-black text-nowrap top-[847px] tracking-[0.32px] animate-pulse">
+        <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[42px] text-black text-nowrap top-[847px] tracking-[1.26px] animate-pulse">
           "后生仔，虔诚的摆上贡品吧"
         </p>
       )}
