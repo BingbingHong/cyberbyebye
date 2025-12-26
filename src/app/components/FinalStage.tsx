@@ -22,7 +22,7 @@ function Frame1() {
 function LoadingMessage() {
   return (
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-      <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative text-[32px] text-black tracking-[9.6px] whitespace-nowrap">
+      <p className="leading-[normal] not-italic relative text-[32px] text-black tracking-[9.6px] whitespace-nowrap">
         老爷在接收你的愿望...
       </p>
     </div>
@@ -35,7 +35,7 @@ function ReplyCard({ reply }: { reply: string }) {
     <div className="absolute bg-white min-h-[300px] max-h-[600px] left-1/2 rounded-[32px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[753px] z-20 overflow-hidden">
       <div className="content-stretch flex items-start overflow-clip p-[28px] relative rounded-[inherit] w-full max-h-full">
         <div className="overflow-y-auto w-full max-h-[544px]">
-          <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-relaxed not-italic relative text-[24px] text-black tracking-[7.68px] whitespace-pre-wrap break-words">{reply}</p>
+          <p className="leading-relaxed not-italic relative text-[16px] text-black tracking-[0.32px] whitespace-pre-wrap break-words">{reply}</p>
         </div>
       </div>
       <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
@@ -52,7 +52,7 @@ function BackButton({ onClick }: { onClick: () => void }) {
       className="absolute left-[50px] rounded-[24px] bottom-[50px] w-[180px] cursor-pointer hover:bg-black/5 transition-colors z-20"
     >
       <div className="content-stretch flex items-center justify-center overflow-clip px-[24px] py-[16px] relative rounded-[inherit] w-full">
-        <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[18px] text-black text-nowrap tracking-[5.4px]">我还有愿望</p>
+        <p className="leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap tracking-[0.32px]">我还有愿望</p>
       </div>
       <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[24px]" />
     </motion.button>

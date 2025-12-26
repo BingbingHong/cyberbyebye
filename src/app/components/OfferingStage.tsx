@@ -62,7 +62,7 @@ function DoneButton({ onClick }: { onClick: () => void }) {
       className="absolute left-[calc(50%+0.5px)] rounded-[32px] top-[842px] translate-x-[-50%] w-[281px] cursor-pointer hover:bg-black/5 transition-colors"
     >
       <div className="content-stretch flex items-center justify-center overflow-clip px-[37px] py-[23px] relative rounded-[inherit] w-full">
-        <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[24px] text-black text-nowrap tracking-[7.68px]">摆好啦</p>
+        <p className="leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap tracking-[0.32px]">摆好啦</p>
       </div>
       <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
     </motion.button>
@@ -163,8 +163,8 @@ export default function OfferingStage({ onComplete }: OfferingStageProps) {
       </div>
 
       {!allRevealed && (
-        <p className="absolute font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] left-[calc(50%-218px)] not-italic text-[24px] text-black text-nowrap top-[847px] tracking-[7.68px] animate-pulse">
-          “后生仔，虔诚的摆上贡品吧”
+        <p className="absolute leading-[normal] left-[calc(50%-218px)] not-italic text-[16px] text-black text-nowrap top-[847px] tracking-[0.32px] animate-pulse">
+          "后生仔，虔诚的摆上贡品吧"
         </p>
       )}
 

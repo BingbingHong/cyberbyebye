@@ -24,7 +24,7 @@ function WishInput({ value, onChange }: { value: string; onChange: (val: string)
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="我希望来年可以赚大钱！！！"
-          className="w-full h-full font-['PingFang_SC:Regular',sans-serif] text-[16px] text-black tracking-[0.32px] resize-none border-none outline-none bg-transparent placeholder:text-gray-400"
+          className="w-full h-full text-[16px] text-black tracking-[0.32px] resize-none border-none outline-none bg-transparent placeholder:text-gray-400"
         />
       </div>
       <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
@@ -39,7 +39,7 @@ function SendButton({ onClick }: { onClick: () => void }) {
       className="absolute left-[calc(50%-5.5px)] rounded-[32px] top-[658px] translate-x-[-50%] w-[269px] hover:bg-black/5 transition-colors cursor-pointer"
     >
       <div className="content-stretch flex items-center justify-center overflow-clip px-[37px] py-[23px] relative rounded-[inherit] w-full">
-        <p className="font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[24px] text-black text-nowrap tracking-[7.68px]">发送给老爷</p>
+        <p className="leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap tracking-[0.32px]">发送给老爷</p>
       </div>
       <div aria-hidden="true" className="absolute border border-black border-solid inset-0 pointer-events-none rounded-[32px]" />
     </button>
@@ -58,7 +58,7 @@ export default function WishingStage({ onSend }: WishingStageProps) {
       <Avatar />
       <StatusDot />
       
-      <p className="absolute font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] left-[calc(50%-161px)] not-italic text-[36px] text-black text-nowrap top-[274px] tracking-[11.52px]">说说你的愿望吧</p>
+      <p className="absolute leading-[normal] left-[calc(50%-161px)] not-italic text-[36px] text-black text-nowrap top-[274px] tracking-[11.52px]">说说你的愿望吧</p>
       
       <WishInput value={wish} onChange={setWish} />
       <SendButton onClick={() => onSend(wish)} />

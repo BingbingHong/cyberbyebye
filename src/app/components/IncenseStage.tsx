@@ -181,7 +181,7 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
         </div>
         <Frame />
         <Frame1 />
-        <p className="absolute font-['HYXiaoBoMeiYanTiW:Regular',sans-serif] leading-[normal] left-[calc(50%-170px)] not-italic text-[24px] text-black text-nowrap top-[876px] tracking-[7.68px]">“上三柱香，默念愿望”</p>
+        <p className="absolute leading-[normal] left-[calc(50%-170px)] not-italic text-[16px] text-black text-nowrap top-[876px] tracking-[0.32px]">"上三柱香，默念愿望"</p>
         
         {/* Burner is drop target */}
         <div className="absolute h-[248px] left-[calc(50%-0.5px)] top-[598px] translate-x-[-50%] w-[295px]" data-name="炉子 1">
