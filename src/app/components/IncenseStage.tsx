@@ -151,7 +151,7 @@ function BurnerArea({ onDrop, isPlaced }: { onDrop: (item: any) => void; isPlace
     >
       {/* Highlight circle when not placed */}
       {!isPlaced && (
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] rounded-full border-4 border-yellow-400 border-dashed animate-pulse bg-yellow-400/20 pointer-events-none" />
+        <div className="absolute left-[calc(50%-3px)] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] rounded-full border-4 border-white border-dashed animate-pulse bg-white/20 pointer-events-none" />
       )}
     </div>
   );
@@ -267,9 +267,6 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
         <Frame1 />
         
         {/* Instruction text */}
-        {!isPlaced && (
-          <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[28px] text-black text-nowrap top-[720px] tracking-[0.84px]">"把旁边的三根香插到炉子上吧"</p>
-        )}
         <div className="absolute left-1/2 -translate-x-1/2 top-[876px] text-center">
           <p className="leading-[normal] not-italic text-[28px] text-black tracking-[0.84px]">上三炷香，默念愿望</p>
           <p className="leading-[normal] not-italic text-[18px] text-black/70 tracking-[0.54px] mt-[8px]">（拖动三炷香到香炉上方完成上香）</p>
