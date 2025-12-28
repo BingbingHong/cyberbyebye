@@ -7,6 +7,7 @@ import FinalStage from "./components/FinalStage";
 import { FitScreen } from "./components/ui/FitScreen";
 import { BackgroundLayer } from "./components/BackgroundLayer";
 import { Toaster, toast } from "sonner";
+import cloudImg1 from "figma:asset/60d7327f6669d5ae5d7287d52c1c76a53e78e4ed.png";
 
 type Stage = 'offering' | 'wishing' | 'incense' | 'burning' | 'final';
 
@@ -47,10 +48,13 @@ export default function App() {
     setWish('');
   };
 
+  // 第一页（offering）显示云朵背景
+  const shouldShowCloud = stage === 'offering';
+
   return (
     <div className="w-full h-screen overflow-hidden">
       {/* 响应式背景层 - 填充整个窗口，显示粉白渐变 */}
-      <BackgroundLayer />
+      <BackgroundLayer cloudImage={shouldShowCloud ? cloudImg1 : undefined} />
       
       <FitScreen width={1440} height={1024}>
         {stage === 'offering' && <OfferingStage onComplete={handleOfferingComplete} />}

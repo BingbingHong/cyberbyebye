@@ -1,4 +1,8 @@
-export function BackgroundLayer() {
+interface BackgroundLayerProps {
+  cloudImage?: string;
+}
+
+export function BackgroundLayer({ cloudImage }: BackgroundLayerProps) {
   return (
     <div 
       className="fixed inset-0 z-0 pointer-events-none"
@@ -8,7 +12,21 @@ export function BackgroundLayer() {
         width: '100%',
         height: '100%',
       }}
-    />
+    >
+      {/* 云朵背景图片 - 如果提供的话 */}
+      {cloudImage && (
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${cloudImage})`,
+            backgroundSize: '100% 100%',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.8,
+          }}
+        />
+      )}
+    </div>
   );
 }
 
