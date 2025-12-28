@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
@@ -28,8 +28,8 @@ function Frame1() {
   return <div className="absolute bg-[#0dbf22] left-[70px] rounded-[100px] size-[12px] top-[83px]" />;
 }
 
-// Reusable Stick component that can be dragged
-function Stick({ id, isVisible, children, className, style }: any) {
+// Reusable Stick component that can be dragged (supports both mouse and touch)
+function Stick({ id, isVisible, children, className, style, onDrop }: any) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.INCENSE,
     item: { id },
@@ -38,33 +38,106 @@ function Stick({ id, isVisible, children, className, style }: any) {
     }),
   }));
 
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDraggingTouch, setIsDraggingTouch] = useState(false);
+  const touchStartRef = useRef<{ x: number; y: number; elementX: number; elementY: number } | null>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
+
   if (!isVisible) return null;
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (elementRef.current) {
+      const rect = elementRef.current.getBoundingClientRect();
+      touchStartRef.current = {
+        x: touch.clientX,
+        y: touch.clientY,
+        elementX: rect.left,
+        elementY: rect.top,
+      };
+      setIsDraggingTouch(true);
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDraggingTouch || !touchStartRef.current) return;
+    const touch = e.touches[0];
+    
+    setPosition({
+      x: touch.clientX - touchStartRef.current.x,
+      y: touch.clientY - touchStartRef.current.y,
+    });
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDraggingTouch) return;
+    
+    const touch = e.changedTouches[0];
+    const burnerElement = document.querySelector('[data-name="Burner Target"]');
+    if (burnerElement) {
+      const burnerRect = burnerElement.getBoundingClientRect();
+      if (
+        touch.clientX >= burnerRect.left &&
+        touch.clientX <= burnerRect.right &&
+        touch.clientY >= burnerRect.top &&
+        touch.clientY <= burnerRect.bottom
+      ) {
+        onDrop({ id });
+      }
+    }
+    
+    setIsDraggingTouch(false);
+    setPosition({ x: 0, y: 0 });
+    touchStartRef.current = null;
+    e.preventDefault();
+  };
+
+  const dragStyle = isDraggingTouch 
+    ? { 
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        opacity: 0.7,
+        zIndex: 1000,
+      }
+    : { 
+        opacity: isDragging ? 0.5 : 1,
+        transform: 'none',
+      };
 
   return (
     <div 
-      ref={drag} 
-      className={`absolute cursor-move ${className}`} 
+      ref={(node) => {
+        drag(node);
+        elementRef.current = node;
+      }}
+      className={`absolute cursor-move select-none ${className}`}
       style={{ 
         ...style, 
-        opacity: isDragging ? 0.5 : 1,
-        transform: 'none',
-        scale: 1,
+        ...dragStyle,
+        touchAction: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none',
       }}
       onDragStart={(e) => {
         e.dataTransfer.effectAllowed = 'move';
-        // 防止浏览器默认的拖动放大效果
         if (e.dataTransfer) {
           e.dataTransfer.setDragImage(new Image(), 0, 0);
         }
       }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {children}
     </div>
   );
 }
 
-// Target area (Burner)
-function BurnerArea({ onDrop }: { onDrop: (item: any) => void }) {
+// Target area (Burner) with highlight
+function BurnerArea({ onDrop, isPlaced }: { onDrop: (item: any) => void; isPlaced: boolean }) {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.INCENSE,
     drop: (item) => onDrop(item),
@@ -75,7 +148,12 @@ function BurnerArea({ onDrop }: { onDrop: (item: any) => void }) {
       ref={drop}
       className="absolute h-[500px] left-[calc(50%-0.5px)] top-[400px] translate-x-[-50%] w-[500px] z-20 bg-transparent"
       data-name="Burner Target"
-    />
+    >
+      {/* Highlight circle when not placed */}
+      {!isPlaced && (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] rounded-full border-4 border-yellow-400 border-dashed animate-pulse bg-yellow-400/20 pointer-events-none" />
+      )}
+    </div>
   );
 }
 
@@ -170,12 +248,7 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="relative w-[1440px] h-[1024px] bg-white overflow-hidden" data-name="Desktop - 6" style={{ backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)" }}>
-        <div className="absolute h-[598px] left-[372px] top-0 w-[695px]" data-name="云 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img1} />
-          </div>
-        </div>
+      <div className="relative w-[1440px] h-[1024px] bg-transparent overflow-hidden" data-name="Desktop - 6">
         <motion.div 
           className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" 
           data-name="老爷像 1"
@@ -192,7 +265,15 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
         </motion.div>
         <Frame />
         <Frame1 />
-        <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[28px] text-black text-nowrap top-[876px] tracking-[0.84px]">"上三柱香，默念愿望"</p>
+        
+        {/* Instruction text */}
+        {!isPlaced && (
+          <p className="absolute leading-[normal] left-1/2 -translate-x-1/2 not-italic text-[28px] text-black text-nowrap top-[720px] tracking-[0.84px]">"把旁边的三根香插到炉子上吧"</p>
+        )}
+        <div className="absolute left-1/2 -translate-x-1/2 top-[876px] text-center">
+          <p className="leading-[normal] not-italic text-[28px] text-black tracking-[0.84px]">上三炷香，默念愿望</p>
+          <p className="leading-[normal] not-italic text-[18px] text-black/70 tracking-[0.54px] mt-[8px]">（拖动三炷香到香炉上方完成上香）</p>
+        </div>
         
         {/* Burner is drop target */}
         <div className="absolute h-[248px] left-[calc(50%-0.5px)] top-[598px] translate-x-[-50%] w-[295px]" data-name="炉子 1">
@@ -202,7 +283,7 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
         </div>
         
         {/* Drop Zone overlay on top of burner */}
-        <BurnerArea onDrop={handleDrop} />
+        <BurnerArea onDrop={handleDrop} isPlaced={isPlaced} />
 
         {/* Placed Sticks appear here */}
         <PlacedSticks isPlaced={isPlaced} />
@@ -212,6 +293,7 @@ export default function IncenseStage({ onComplete }: IncenseStageProps) {
           id="incense-bundle" 
           isVisible={!isPlaced}
           className="left-[358px] top-[677px]"
+          onDrop={handleDrop}
         >
           <IncenseBundle />
         </Stick>

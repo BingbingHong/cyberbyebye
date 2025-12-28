@@ -5,6 +5,7 @@ import IncenseStage from "./components/IncenseStage";
 import BurningStage from "./components/BurningStage";
 import FinalStage from "./components/FinalStage";
 import { FitScreen } from "./components/ui/FitScreen";
+import { BackgroundLayer } from "./components/BackgroundLayer";
 import { Toaster, toast } from "sonner";
 
 type Stage = 'offering' | 'wishing' | 'incense' | 'burning' | 'final';
@@ -47,7 +48,10 @@ export default function App() {
   };
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-[#fafafa]">
+    <div className="w-full h-screen overflow-hidden">
+      {/* 响应式背景层 - 填充整个窗口，显示粉白渐变 */}
+      <BackgroundLayer />
+      
       <FitScreen width={1440} height={1024}>
         {stage === 'offering' && <OfferingStage onComplete={handleOfferingComplete} />}
         {stage === 'wishing' && <WishingStage onSend={handleWishSend} />}

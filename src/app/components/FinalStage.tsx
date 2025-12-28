@@ -135,26 +135,16 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
 
   return (
     <>
-      {/* 背景层 - 使用 fixed 定位填满整个视口 */}
+      {/* 背景层 - 使用 fixed 定位填满整个视口，粉白渐变 */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none"
         style={{ 
-          backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          // 粉白渐变：从顶部的透明粉色（白色）到底部的不透明粉色 #FBC4D4
+          background: "linear-gradient(to bottom, rgba(251, 196, 212, 0), rgba(251, 196, 212, 1))",
+          width: '100%',
+          height: '100%',
         }}
-      >
-        {/* 云朵背景图片 - 填满整个视口 */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${img1})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.8,
-          }}
-        />
-      </div>
+      />
 
       {/* 前景内容 - 保持原始大小和位置 */}
       <div className="relative w-[1440px] h-[1024px] overflow-hidden z-10" data-name="Desktop - 8">

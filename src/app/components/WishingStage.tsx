@@ -54,7 +54,7 @@ export default function WishingStage({ onSend }: WishingStageProps) {
   const [wish, setWish] = useState("");
 
   return (
-    <div className="relative w-[1440px] h-[1024px] bg-white overflow-hidden" data-name="Desktop - 4" style={{ backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)" }}>
+    <div className="relative w-[1440px] h-[1024px] bg-transparent overflow-hidden" data-name="Desktop - 4">
       <Avatar />
       <StatusDot />
       

@@ -98,12 +98,7 @@ export default function BurningStage({ onComplete }: BurningStageProps) {
   }, [onComplete]);
 
   return (
-    <div className="relative w-[1440px] h-[1024px] bg-white overflow-hidden" data-name="Desktop - 7" style={{ backgroundImage: "linear-gradient(rgba(251, 196, 212, 0) 9.668%, rgb(251, 196, 212) 114.31%), linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%)" }}>
-      <div className="absolute h-[598px] left-[372px] top-0 w-[695px]" data-name="云 1">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[116.18%] left-0 max-w-none top-0 w-full" src={img2} />
-        </div>
-      </div>
+    <div className="relative w-[1440px] h-[1024px] bg-transparent overflow-hidden" data-name="Desktop - 7">
       <motion.div 
         className="absolute left-1/2 size-[464px] top-[71px] translate-x-[-50%]" 
         data-name="老爷像 1"
