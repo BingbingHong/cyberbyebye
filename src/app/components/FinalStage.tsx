@@ -146,8 +146,19 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         }}
       />
 
+      {/* 高斯模糊背景层 - 使用 fixed 定位铺满整个窗口 */}
+      <div 
+        className="fixed inset-0 backdrop-blur-md bg-white/60 z-10 pointer-events-none"
+        style={{
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          width: '100%',
+          height: '100%',
+        }}
+      />
+
       {/* 前景内容 - 保持原始大小和位置 */}
-      <div className="relative w-[1440px] h-[1024px] overflow-hidden z-10" data-name="Desktop - 8">
+      <div className="relative w-[1440px] h-[1024px] overflow-hidden z-20" data-name="Desktop - 8">
         <div className="absolute h-[882px] left-[207px] top-[20px] w-[1025px] opacity-0 pointer-events-none" data-name="云 1">
           {/* 这个元素隐藏，因为已经在背景层显示了 */}
         </div>
@@ -167,15 +178,6 @@ export default function FinalStage({ wish, onReset }: FinalStageProps) {
         </motion.div>
         <Frame />
         <Frame1 />
-
-        {/* 高斯模糊背景层 */}
-        <div 
-          className="absolute inset-0 backdrop-blur-md bg-white/60 z-10"
-          style={{
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-          }}
-        />
 
         {/* 前景内容（在模糊层之上） */}
         {isLoading ? (
